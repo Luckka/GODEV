@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "489380677784",
+    "project_id": "godev-c2277",
+    "storage_bucket": "godev-c2277.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489380677784:android:e38d2667601ec3b020e8ed",
+        "android_client_info": {
+          "package_name": "com.example.godev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsmtp30g-wX6Tsih7aYlSPGyfTWeyA-3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
