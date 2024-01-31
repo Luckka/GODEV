@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:godev/app/app_module.dart';
+import 'package:godev/app/app_widget.dart';
 import 'package:godev/app/responsive/mobile_screen_layout.dart';
 import 'package:godev/app/responsive/responsive_layout_screen.dart';
 import 'package:godev/app/responsive/web_screen_layout.dart';
@@ -19,7 +22,7 @@ void main() async {
     await Firebase.initializeApp();
   }
 
-  runApp(const MyApp());
+  runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
 
 class MyApp extends StatelessWidget {
