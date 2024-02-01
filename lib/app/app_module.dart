@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:godev/app/modules/login/login_module.dart';
 
 class AppModule extends Module{
   @override
@@ -8,5 +9,7 @@ class AppModule extends Module{
 
   @override
   // TODO: implement routes
-  List<ModularRoute> get routes => super.routes;
+  List<ModularRoute> get routes => [
+    ModuleRoute(Modular.initialRoute, module: LoginModule())
+  ];
 }
