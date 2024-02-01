@@ -10,6 +10,7 @@ class AppWidget extends StatelessWidget {
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
       title: 'GO',
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
     );
   }

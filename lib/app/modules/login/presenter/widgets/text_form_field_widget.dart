@@ -5,7 +5,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final bool isPass;
-  const TextFormFieldWidget({super.key, required this.controller, required this.hintText, required this.keyboardType, required this.isPass});
+  const TextFormFieldWidget({super.key, required this.controller, required this.hintText, required this.keyboardType, this.isPass = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,13 @@ class TextFormFieldWidget extends StatelessWidget {
     return TextFormField(
         controller: controller,
         decoration: InputDecoration(
+
             hintText:hintText,
             border: inputBorder,
           focusedBorder: inputBorder,
           enabledBorder: inputBorder,
           filled: true,
-          contentPadding: EdgeInsets.all(8),
+          contentPadding: const EdgeInsets.all(8),
 
         ),
 
