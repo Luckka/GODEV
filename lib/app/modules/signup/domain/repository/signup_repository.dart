@@ -4,7 +4,7 @@ import 'package:dart_either/dart_either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:godev/app/core/shared/app_exceptions.dart';
 
-abstract interface class LoginRepository{
+abstract interface class SignUpRepository{
 
   Future<void> call({
     required String user,

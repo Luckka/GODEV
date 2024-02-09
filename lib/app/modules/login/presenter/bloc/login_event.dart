@@ -1,11 +1,10 @@
-abstract class LoginEvent{
+abstract class SignInEvent{
 
 }
 
-class InitialEvent extends LoginEvent {
+class InitialEvent extends SignInEvent {
 
 }
 
-class LoadingLogin extends LoginEvent{}
+class LoginUserEvent extends SignInEvent{}
 
-class SignUpEvent extends LoginEvent{}

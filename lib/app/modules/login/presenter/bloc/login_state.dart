@@ -1,11 +1,11 @@
-class LoginState{
-  LoginState init(){
-    return LoginState();
+class SignInState{
+  SignInState init(){
+    return SignInState();
   }
 
-  LoginState clone(){
-    return LoginState();
+  SignInState clone(){
+    return SignInState();
   }
 }
 
-class LoadingLogin extends LoginState{}
+class NewUserState extends SignInState{}

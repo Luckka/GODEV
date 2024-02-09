@@ -7,12 +7,11 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:godev/app/core/shared/app_exceptions.dart';
 
-import 'package:godev/app/modules/login/infra/mappers/login_mappers.dart';
 
-import '../domain/helpers/login_exceptions.dart';
-import '../infra/datasource/login_datasource.dart';
+import '../domain/helpers/signup_exceptions.dart';
+import '../infra/datasource/signup_datasource.dart';
 
-class LoginDatasourceImpl implements LoginDatasource {
+class SignUpDatasourceImpl implements SignUpDatasource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
@@ -46,7 +45,7 @@ class LoginDatasourceImpl implements LoginDatasource {
       }
 
       message = "Usuário ou senha invalido";
-      throw LoginException(message: message, stackTrace: null);
+      throw SignUpException(message: message, stackTrace: null);
     } catch (err, s) {
        print(err);
     }
