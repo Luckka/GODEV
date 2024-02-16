@@ -56,6 +56,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(height: 64),
                         Stack(
                           children: [
+                            state is PickImageState ?
+                             CircleAvatar(
+                              radius: 64,
+                              backgroundImage: MemoryImage(widget.signUpBloc.imageResult!),
+                            ):
                             const CircleAvatar(
                               radius: 64,
                               backgroundImage: NetworkImage(
@@ -65,7 +70,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 bottom: -10,
                                 left: 80,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    widget.signUpBloc.add(PickImageEvent());
+                                  },
                                   icon: const Icon(Icons.add_a_photo,color: Color(0Xff30B47B),),
                                 ))
                           ],
