@@ -11,6 +11,7 @@ abstract interface class SignUpRepository{
     required String password,
     required String email,
     required String bio,
+    required Uint8List file
 
   });
 }

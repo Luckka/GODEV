@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 abstract interface class SignUpDatasource {
 
   Future<void> call({
@@ -6,6 +8,7 @@ abstract interface class SignUpDatasource {
     required String password,
     required String email,
     required String bio,
+    required Uint8List file
 
 
   });

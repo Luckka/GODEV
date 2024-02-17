@@ -5,6 +5,7 @@ import 'package:dart_either/src/dart_either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:godev/app/core/services/firebase_firestore/firestore_service.dart';
+import 'package:godev/app/core/services/storage/storage_service.dart';
 
 import 'package:godev/app/core/shared/app_exceptions.dart';
 
@@ -25,6 +26,7 @@ class SignUpDatasourceImpl implements SignUpDatasource {
       required String password,
       required String email,
       required String bio,
+      required Uint8List file
       }) async {
     String res = 'Some error occured';
     String message = '';
@@ -36,6 +38,8 @@ class SignUpDatasourceImpl implements SignUpDatasource {
           ) {
         final cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        
+        String photoUrl = await StorageMethods().uploadImagetoStorage('profilePics', file, false);
 
         await firestoreService.setDataOnDocument(data: {
           'username': user,
@@ -44,6 +48,7 @@ class SignUpDatasourceImpl implements SignUpDatasource {
           'bio': bio,
           'followers': [],
           'following': [],
+          'photoUrl': photoUrl
         },
         documentPath: cred.user!.uid, collectionPath: 'users');
 

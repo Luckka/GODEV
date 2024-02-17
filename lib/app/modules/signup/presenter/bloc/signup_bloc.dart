@@ -31,7 +31,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState>{
   }
 
   Future<void> _signUp(NewUserEvent event, Emitter<SignUpState> emit) async{
-      final result = await signUpUseCase.call(user: usernameController.text, password: passwordController.text, email: emailController.text, bio: bioController.text);
+      final result = await signUpUseCase.call(user: usernameController.text, password: passwordController.text, email: emailController.text, bio: bioController.text, file: imageResult!);
 
       return result;
   }

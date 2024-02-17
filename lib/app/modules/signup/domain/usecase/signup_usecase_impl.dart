@@ -14,8 +14,8 @@ class SignUpUseCaseImpl implements SignUpUseCase{
   SignUpUseCaseImpl({required this.signupRepository});
 
   @override
-  Future<void> call({required String user, required String password, required String email, required String bio}) async{
-     final result = await signupRepository.call(user: user, password: password, email: email, bio: bio,);
+  Future<void> call({required String user, required String password, required String email, required String bio, required Uint8List file}) async{
+     final result = await signupRepository.call(user: user, password: password, email: email, bio: bio,file: file);
 
      return result;
   }
