@@ -157,7 +157,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
 
                             },
-                            child: Container(
+                            child: state is LoadingSignUpState ? const Center(child: CircularProgressIndicator()) :
+                            Container(
                               width: double.infinity,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 12),

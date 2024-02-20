@@ -11,12 +11,11 @@ import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
 import 'package:godev/app/modules/signup/presenter/utils/snack_bar_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SignUpBloc extends Bloc<SignUpEvent, SignUpState>{
-  SignUpBloc(super.initialState, {required this.signUpUseCase}){
+class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+  SignUpBloc(super.initialState, {required this.signUpUseCase}) {
     on<InitialEvent>(_init);
     on<NewUserEvent>(_signUp);
     on<PickImageEvent>(_pickImage);
-
   }
 
   final SignUpUseCase signUpUseCase;
@@ -31,57 +30,38 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState>{
 
   String messageErrorFirebase = '';
 
-
-
-
   RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-
-
-  void _init(InitialEvent event, Emitter<SignUpState> emit) async{
-      emit(state.clone());
-
+  void _init(InitialEvent event, Emitter<SignUpState> emit) async {
+    emit(state.clone());
   }
 
+  Future<void> _signUp(NewUserEvent event, Emitter<SignUpState> emit) async {
+    emit(LoadingSignUpState());
+    final result = await signUpUseCase.call(
+        user: usernameController.text,
+        password: passwordController.text,
+        email: emailController.text,
+        bio: bioController.text,
+        file: imageResult!);
 
+    result.fold(ifLeft: (l) {
+      firebaseSuccessSignUp = false;
+      showSnackBar(l.message, event.context);
 
+      print('AQUI${l.message}');
+    }, ifRight: (r) {
+      showSnackBar("Sucesso ao Cadastrar", event.context);
+      return result;
+    });
 
-
-  Future<void> _signUp(NewUserEvent event, Emitter<SignUpState> emit) async{
-
-
-
-        final result = await signUpUseCase.call(user: usernameController.text, password: passwordController.text, email: emailController.text, bio: bioController.text, file: imageResult!);
-
-         result.fold(
-            ifLeft: (l){
-
-              firebaseSuccessSignUp = false;
-              showSnackBar(l.message, event.context);
-
-
-              print('AQUI${l.message}');
-
-
-            },
-
-            ifRight: (r){
-              return result;
-            });
-
-
-
-
-
-
+    emit(SignUpState());
   }
 
-  Future<void> _pickImage(PickImageEvent event, Emitter<SignUpState> emit) async{
-
+  Future<void> _pickImage(
+      PickImageEvent event, Emitter<SignUpState> emit) async {
     imageResult = await pickImage(ImageSource.gallery);
 
     emit(PickImageState(image: imageResult!));
-
-
   }
 }

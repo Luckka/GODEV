@@ -20,3 +20,7 @@ class PickImageState extends SignUpState{
 class SignUpErrorState extends SignUpState{
 
 }
+
+class LoadingSignUpState extends SignUpState{
+
+}
