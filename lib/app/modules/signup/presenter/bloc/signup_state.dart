@@ -9,11 +9,14 @@ class SignUpState{
     return SignUpState();
   }
 }
-
-final class NewUserState extends SignUpState{}
+ class NewUserState extends SignUpState{}
 
 class PickImageState extends SignUpState{
   final Uint8List image;
 
   PickImageState({required this.image});
+}
+
+class SignUpErrorState extends SignUpState{
+
 }

@@ -5,7 +5,8 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final bool isPass;
-  const TextFormFieldWidget({super.key, required this.controller, required this.hintText, required this.keyboardType, this.isPass = false});
+  final String? Function(String?)? validator;
+  const TextFormFieldWidget({super.key, required this.controller, required this.hintText, required this.keyboardType, this.isPass = false, required this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class TextFormFieldWidget extends StatelessWidget {
 
       keyboardType: keyboardType,
       obscureText: isPass,
+      validator: validator,
     );
   }
 }

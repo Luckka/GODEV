@@ -1,15 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dart_either/src/dart_either.dart';
+import 'package:dart_either/dart_either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:godev/app/core/services/firebase_firestore/firestore_service.dart';
 import 'package:godev/app/core/services/storage/storage_service.dart';
-
 import 'package:godev/app/core/shared/app_exceptions.dart';
-
-
 import '../domain/helpers/signup_exceptions.dart';
 import '../infra/datasource/signup_datasource.dart';
 
@@ -20,8 +15,11 @@ class SignUpDatasourceImpl implements SignUpDatasource {
 
   final FirestoreService firestoreService = FirestoreService(firestore: FirebaseFirestore.instance);
 
+  bool successNewUser = true;
+  String message = '';
+
   @override
-  Future<String> call(
+  Future<Either<AppExceptions,String>> call(
       {required String user,
       required String password,
       required String email,
@@ -29,7 +27,7 @@ class SignUpDatasourceImpl implements SignUpDatasource {
       required Uint8List file
       }) async {
     String res = 'Some error occured';
-    String message = '';
+
     try {
       if (email.isNotEmpty ||
           password.isNotEmpty ||
@@ -52,14 +50,16 @@ class SignUpDatasourceImpl implements SignUpDatasource {
         },
         documentPath: cred.user!.uid, collectionPath: 'users');
 
-        return 'success';
+        return const Right('success');
 
       }
 
       message = "Usuário ou senha invalido";
       throw SignUpException(message: message, stackTrace: null);
     } catch (err, s) {
-        return 'error';
+        message = err.toString();
+        successNewUser = false;
+        return Left(SignUpException(message: err.toString(), stackTrace: s));
     }
   }
 }

@@ -44,14 +44,14 @@ class _LoginPageState extends State<LoginPage> {
           TextFormFieldWidget(
             controller: _emailController,
             hintText: 'Enter your Email',
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.emailAddress, validator: (value) {  },
           ),
           SizedBox(height: 24),
           TextFormFieldWidget(
             controller: _passwordController,
             hintText: 'Enter your Password',
             keyboardType: TextInputType.visiblePassword,
-            isPass: true,
+            isPass: true, validator: (value) {  },
           ),
           SizedBox(height: 24),
           InkWell(

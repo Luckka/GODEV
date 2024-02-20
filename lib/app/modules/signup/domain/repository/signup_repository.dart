@@ -6,7 +6,7 @@ import 'package:godev/app/core/shared/app_exceptions.dart';
 
 abstract interface class SignUpRepository{
 
-  Future<void> call({
+  Future<Either<AppExceptions,void>> call({
     required String user,
     required String password,
     required String email,
