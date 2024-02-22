@@ -8,7 +8,7 @@ import 'package:godev/app/modules/signup/external/signup_datasource_impl.dart';
 import 'package:godev/app/modules/signup/presenter/bloc/signup_event.dart';
 import 'package:godev/app/modules/signup/presenter/bloc/signup_state.dart';
 import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
-import 'package:godev/app/modules/signup/presenter/utils/snack_bar_widget.dart';
+import 'package:godev/app/core/shared/snack_bar_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
@@ -19,7 +19,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   final SignUpUseCase signUpUseCase;
-  final SignUpDatasourceImpl signUpDatasourceImpl = SignUpDatasourceImpl();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController bioController = TextEditingController();

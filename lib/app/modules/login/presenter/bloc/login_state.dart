@@ -9,3 +9,5 @@ class SignInState{
 }
 
 class NewUserState extends SignInState{}
+
+class LoginLoading extends SignInState{}

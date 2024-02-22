@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:godev/app/core/app_colors.dart';
+import 'package:godev/app/core/app_routes.dart';
 import 'package:godev/app/modules/signup/presenter/bloc/signup_bloc.dart';
 import 'package:godev/app/modules/signup/presenter/bloc/signup_state.dart';
-import 'package:godev/app/modules/signup/presenter/utils/snack_bar_widget.dart';
+import 'package:godev/app/core/shared/snack_bar_widget.dart';
 
 import '../../external/signup_datasource_impl.dart';
 import '../bloc/signup_event.dart';
@@ -39,13 +40,21 @@ class _SignUpPageState extends State<SignUpPage> {
     final bloc = BlocProvider.of<SignUpBloc>(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+          Modular.to.navigate('/');
+        }),
+      ),
       body: BlocBuilder<SignUpBloc, SignUpState>(
           bloc: widget.signUpBloc,
           builder: (context, state) {
 
 
             return SafeArea(
+
                 child: SingleChildScrollView(
+
                   child: Container(
                     height: size.height,
                     padding: const EdgeInsets.symmetric(horizontal: 32),
