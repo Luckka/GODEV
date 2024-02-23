@@ -7,7 +7,9 @@ class FirestoreService {
 
 
   Future<void> setDataOnDocument({required Map<String,dynamic> data,required String documentPath,required String collectionPath}) async{
-    return firestore.collection(collectionPath).doc(documentPath).set(data);
+     await firestore.collection(collectionPath).doc(documentPath).set(data);
+
+
   }
 
 }

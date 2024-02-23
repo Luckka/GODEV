@@ -53,8 +53,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       print('AQUI${l.message}');
     }, ifRight: (r) async{
-      await UserDate.instance.initUserData(userEntity: r);
-      Modular.to.navigate(AppRoutes.home);
+
+      print('PRINT: ${r.email}');
+      UserDate.instance.initUserData(userEntity: r);
+      Modular.to.pushNamed(AppRoutes.home);
       return result;
     });
 

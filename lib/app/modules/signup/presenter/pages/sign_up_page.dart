@@ -23,7 +23,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
    final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-    final SignUpDatasourceImpl signUpDatasourceImpl = SignUpDatasourceImpl();
 
   
 

@@ -44,13 +44,13 @@ class SignUpDatasourceImpl implements SignUpDatasource {
             .uploadImagetoStorage('profilePics', file, false);
 
         model.UserMapper userMapper = model.UserMapper(
-            email: userEntity?.email ?? "",
+            email: email,
             photoUrl: photoUrl,
-            username: userEntity?.username ?? '',
-            bio: userEntity?.bio ?? '',
+            username: photoUrl,
+            bio: bio,
             followers: [],
             following: [],
-            uid: cred.user!.uid);
+            uid: cred.user!.uid,);
 
         await firestoreService.setDataOnDocument(documentPath: cred.user!.uid, collectionPath: 'users', data: userMapper.toMap());
 
