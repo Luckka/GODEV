@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:godev/app/core/app_routes.dart';
+import 'package:godev/app/core/shared/user_info.dart';
 import 'package:godev/app/modules/signup/domain/usecase/signup_usecase.dart';
 import 'package:godev/app/modules/signup/external/signup_datasource_impl.dart';
 import 'package:godev/app/modules/signup/presenter/bloc/signup_event.dart';
@@ -51,7 +52,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       showSnackBar(l.message, event.context);
 
       print('AQUI${l.message}');
-    }, ifRight: (r) {
+    }, ifRight: (r) async{
+      await UserDate.instance.initUserData(userEntity: r);
       Modular.to.navigate(AppRoutes.home);
       return result;
     });

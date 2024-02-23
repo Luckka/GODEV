@@ -20,14 +20,16 @@ class SignUpDatasourceImpl implements SignUpDatasource {
 
   bool successNewUser = true;
   String message = '';
+  UserEntity? userEntity;
 
   @override
-  Future<Either<AppExceptions, String>> call(
+  Future<Either<AppExceptions, UserEntity>> call(
       {required String user,
       required String password,
       required String email,
       required String bio,
-      required Uint8List file}) async {
+      required Uint8List file,
+      }) async {
     String res = 'Some error occured';
 
     try {
@@ -42,17 +44,17 @@ class SignUpDatasourceImpl implements SignUpDatasource {
             .uploadImagetoStorage('profilePics', file, false);
 
         model.UserMapper userMapper = model.UserMapper(
-            email: email,
+            email: userEntity?.email ?? "",
             photoUrl: photoUrl,
-            username: user,
-            bio: bio,
+            username: userEntity?.username ?? '',
+            bio: userEntity?.bio ?? '',
             followers: [],
             following: [],
             uid: cred.user!.uid);
 
-        await firestoreService.setDataOnDocument( documentPath: cred.user!.uid, collectionPath: 'users', data: userMapper.toMap());
+        await firestoreService.setDataOnDocument(documentPath: cred.user!.uid, collectionPath: 'users', data: userMapper.toMap());
 
-        return const Right('success');
+        return Right(userMapper.fromMap(userMapper.toMap()));
       }
 
       message = "Usuário ou senha invalido";

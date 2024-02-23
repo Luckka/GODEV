@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:godev/app/core/shared/user_info.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +12,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(child: Text(UserDate.instance.user?.email ?? '',style: TextStyle(color: Colors.white),)),
+    );
   }
 }

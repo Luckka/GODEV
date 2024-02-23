@@ -41,6 +41,7 @@ class LoginBloc extends Bloc<SignInEvent, SignInState>{
           showSnackBar(l.message, event.context);
         },
         ifRight: (r){
+
           Modular.to.navigate(AppRoutes.home);
           return result;
 

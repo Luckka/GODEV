@@ -1,6 +1,7 @@
 import 'package:dart_either/src/dart_either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:godev/app/core/shared/app_exceptions.dart';
+import 'package:godev/app/core/shared/entity/user_entity.dart';
 import 'package:godev/app/modules/login/domain/helpers/login_exceptions.dart';
 import 'package:godev/app/modules/login/infra/datasource/login_datasource.dart';
 
@@ -15,7 +16,7 @@ class LoginDatasourceImpl implements LoginDatasource{
       if(email.isNotEmpty || password.isNotEmpty){
         await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-        return const Right('success');
+        return Right('success');
       }
 
       throw LoginExceptions(message: 'Success', stackTrace: null);

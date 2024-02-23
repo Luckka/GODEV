@@ -1,24 +1,24 @@
 import 'package:godev/app/core/shared/entity/user_entity.dart';
 
-class UserMapper {
-  final String email;
-  final String photoUrl;
-  final String username;
-  final String bio;
-  final List followers;
-  final List following;
-  final String uid;
-
+class UserMapper extends UserEntity {
   UserMapper(
-      {required this.email,
-      required this.photoUrl,
-      required this.username,
-      required this.bio,
-      required this.followers,
-      required this.following,
-      required this.uid});
+      {String? email,
+      String? photoUrl,
+      String? username,
+      String? bio,
+      List<dynamic>? followers,
+      List<dynamic>? following,
+      String? uid})
+      : super(
+            email: email ?? '',
+            uid: uid ?? '',
+            photoUrl: photoUrl ?? '',
+            username: username ?? '',
+            bio: bio ?? '',
+            followers: followers ?? [],
+            following: following ?? []);
 
-   Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'email': email,
       'photoUrl': photoUrl,
@@ -30,7 +30,7 @@ class UserMapper {
     };
   }
 
-  static UserEntity fromMap(Map<String, dynamic> map) {
+  UserEntity fromMap(Map<String, dynamic> map) {
     return UserEntity(
         email: map['email'],
         uid: map['uid'],
