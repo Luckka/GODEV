@@ -9,6 +9,7 @@ import 'package:godev/app/modules/home/presenter/utils/navigation_tap.dart';
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
   HomeBloc() :super(HomeStateInit()){
     on<InitialEvent>(_init);
+    on<HomePageChangeEvent>(_homePageChangeEvent);
   }
 
   late PageController pageController;
@@ -19,12 +20,14 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
     pageController.jumpToPage(page);
   }
 
-  void onPageChanged(int page){
-
-    pageSelected = page;
-
-
-  }
+  // void onPageChanged(int page){
+  //
+  //   pageSelected = page;
+  //
+  //   add(HomePageChangeEvent(pageSelected));
+  //
+  //
+  // }
 
 
 
@@ -37,8 +40,13 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
 
 
-     onPageChanged(pageSelected);
-     emit(HomeChangePage());
+
+
+  }
+
+  Future<void> _homePageChangeEvent(HomePageChangeEvent event, Emitter<HomeState> emit) async{
+    emit(HomeChangePage(page: event.index));
+    //onPageChanged(event.index);
 
   }
 }

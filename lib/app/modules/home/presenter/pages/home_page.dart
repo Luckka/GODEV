@@ -28,6 +28,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void onPageChanged(int page){
+
+    setState(() {
+      widget.homeBloc.pageSelected = page;
+    });
+
+  }
+
+
+
   Widget _buildPage(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeBloc, HomeState>(
@@ -38,18 +48,19 @@ class _HomePageState extends State<HomePage> {
 
           }
 
-          if(state is HomeChangePage){
-            widget.homeBloc.onPageChanged(widget.homeBloc.pageSelected);
-          }
+          // if(state is HomeChangePage){
+          //   widget.homeBloc.onPageChanged(widget.homeBloc.pageSelected);
+          // }
           return PageView(
             children: [
               Text('test1'),
               Text('test2'),
               Text('test3'),
               Text('test4'),
+              Text('test5'),
             ],
             controller: widget.homeBloc.pageController,
-            onPageChanged: widget.homeBloc.onPageChanged,
+            onPageChanged: onPageChanged,
           );
         },
       ),
@@ -60,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(
                 Icons.home,
                 color: widget.homeBloc.pageSelected == 0
-                    ? AppColors.subtitleText
+                    ? AppColors.green
                     : AppColors.white,
               ),
               label: '',
@@ -69,25 +80,17 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(
                 Icons.search,
                 color: widget.homeBloc.pageSelected == 1
-                    ? AppColors.subtitleText
+                    ? AppColors.green
                     : AppColors.white,
               ),
               label: '',
               backgroundColor: Colors.amber),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: widget.homeBloc.pageSelected == 2
-                    ? AppColors.subtitleText
-                    : AppColors.white,
-              ),
-              label: '',
-              backgroundColor: Colors.amber),
+
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.add_circle,
-                color: widget.homeBloc.pageSelected == 3
-                    ? AppColors.subtitleText
+                color: widget.homeBloc.pageSelected == 2
+                    ? AppColors.green
                     : AppColors.white,
               ),
               label: '',
@@ -95,8 +98,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.favorite,
-                color: widget.homeBloc.pageSelected == 4
-                    ? AppColors.subtitleText
+                color: widget.homeBloc.pageSelected == 3
+                    ? AppColors.green
                     : AppColors.white,
               ),
               label: '',
@@ -104,14 +107,18 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
-                color: widget.homeBloc.pageSelected == 5
-                    ? AppColors.subtitleText
+                color: widget.homeBloc.pageSelected == 4
+                    ? AppColors.green
                     : AppColors.white,
               ),
               label: '',
               backgroundColor: Colors.amber),
         ],
-        onTap: widget.homeBloc.navigationTap,
+        onTap:(page){
+          widget.homeBloc.add(HomePageChangeEvent(page));
+          widget.homeBloc.navigationTap(page);
+
+        }
       ),
     );
   }
