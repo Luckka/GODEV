@@ -5,6 +5,7 @@ import 'package:godev/app/core/app_colors.dart';
 import 'package:godev/app/core/shared/user_info.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
+import 'package:godev/app/modules/home/presenter/pages/add_post_page.dart';
 
 import '../bloc/home_state.dart';
 import '../utils/navigation_tap.dart';
@@ -47,18 +48,15 @@ class _HomePageState extends State<HomePage> {
             widget.homeBloc.pageController = PageController();
 
           }
-
-          // if(state is HomeChangePage){
-          //   widget.homeBloc.onPageChanged(widget.homeBloc.pageSelected);
-          // }
           return PageView(
             children: [
               Text('test1'),
               Text('test2'),
-              Text('test3'),
+              AddPostPage(homeBloc: widget.homeBloc,),
               Text('test4'),
               Text('test5'),
             ],
+            physics: NeverScrollableScrollPhysics(),
             controller: widget.homeBloc.pageController,
             onPageChanged: onPageChanged,
           );

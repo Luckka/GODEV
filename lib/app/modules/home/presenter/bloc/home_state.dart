@@ -10,3 +10,9 @@ final class HomeChangePage extends HomeState{
 
   HomeChangePage({required this.page});
 }
+
+class SelectImageState extends HomeState{
+  final Uint8List image;
+
+  SelectImageState({required this.image});
+}
