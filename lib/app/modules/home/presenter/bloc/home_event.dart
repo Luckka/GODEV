@@ -23,6 +23,11 @@ class SelectedImageEvent extends HomeEvent{
 }
 
 class PostImageEvent extends HomeEvent{
+  final String uid;
+  final String username;
+  final String profileImage;
+  final BuildContext context;
 
+  PostImageEvent({required this.uid, required this.username, required this.profileImage, required this.context});
 }
 

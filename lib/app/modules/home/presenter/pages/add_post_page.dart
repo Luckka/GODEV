@@ -28,7 +28,7 @@ class _AddPostPageState extends State<AddPostPage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    final TextEditingController _descriptionControiller = TextEditingController();
+
 
 
     return widget.homeBloc.file == null
@@ -51,7 +51,7 @@ class _AddPostPageState extends State<AddPostPage> {
               actions: [
                 TextButton(
                     onPressed: () {
-
+                      widget.homeBloc.add(PostImageEvent(uid: '', username: '', profileImage: '', context: context));
                     },
                     child: const Text(
                       'Post',

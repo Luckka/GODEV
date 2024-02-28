@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godev/app/core/shared/snack_bar_widget.dart';
 import 'package:godev/app/modules/home/domain/usecase/upload_post_usecase.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
@@ -26,6 +27,7 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
   int pageSelected = 0;
   Uint8List? file;
+  final TextEditingController _descriptionControiller = TextEditingController();
 
   void navigationTap(int page){
     pageController.jumpToPage(page);
@@ -123,6 +125,17 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   }
 
   Future<void> _postImage(PostImageEvent event, Emitter<HomeState> emit) async{
+
+    final result = await uploadPostUseCase.call(description: _descriptionControiller.text, file: file!, uid: event.uid, username: event.username, profileImage: event.profileImage);
+
+    result.fold(
+        ifLeft: (l){
+          showSnackBar(l.message, event.context);
+        },
+        ifRight: (r){
+          showSnackBar('Success', event.context);
+        });
+
 
 
   }
