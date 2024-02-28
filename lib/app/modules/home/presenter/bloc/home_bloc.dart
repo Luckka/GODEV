@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godev/app/modules/home/domain/usecase/upload_post_usecase.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
 import 'package:godev/app/modules/home/presenter/utils/navigation_tap.dart';
@@ -11,13 +12,17 @@ import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
-  HomeBloc() :super(HomeStateInit()){
+  HomeBloc({required this.uploadPostUseCase}) :super(HomeStateInit()){
     on<InitialEvent>(_init);
     on<HomePageChangeEvent>(_homePageChangeEvent);
     on<SelectedImageEvent>(_selectImage);
+    on<PostImageEvent>(_postImage);
+
   }
 
   late PageController pageController;
+
+  final UploadPostUseCase uploadPostUseCase;
 
   int pageSelected = 0;
   Uint8List? file;
@@ -76,15 +81,30 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
 
             },
+
           ),
           SimpleDialogOption(
             padding: const EdgeInsets.all(20),
             child: const Text('Choose from Gallery'),
             onPressed: () async{
 
-              Navigator.of(context).pop();
+
               file = await pickImage(ImageSource.gallery);
+
               emit(SelectImageState(image: file!));
+
+
+
+            },
+          ),
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Cancel'),
+            onPressed: () async{
+
+
+              Navigator.of(context).pop();
+
 
 
             },
@@ -98,6 +118,11 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
     });
 
+
+
+  }
+
+  Future<void> _postImage(PostImageEvent event, Emitter<HomeState> emit) async{
 
 
   }

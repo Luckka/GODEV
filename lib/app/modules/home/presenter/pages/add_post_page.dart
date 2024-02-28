@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godev/app/core/app_colors.dart';
+import 'package:godev/app/core/shared/user_info.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
 
@@ -26,6 +28,9 @@ class _AddPostPageState extends State<AddPostPage> {
   }
 
   Widget _buildPage(BuildContext context) {
+    final TextEditingController _descriptionControiller = TextEditingController();
+
+
     return widget.homeBloc.file == null
         ? Center(
             child: IconButton(
@@ -46,7 +51,7 @@ class _AddPostPageState extends State<AddPostPage> {
               actions: [
                 TextButton(
                     onPressed: () {
-                      widget.homeBloc.add(SelectedImageEvent(context));
+
                     },
                     child: const Text(
                       'Post',
@@ -66,14 +71,15 @@ class _AddPostPageState extends State<AddPostPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CircleAvatar(
+                           CircleAvatar(
                             backgroundImage: NetworkImage(
-                                'https://cdn.pixabay.com/photo/2019/09/29/22/06/light-bulb-4514505_1280.jpg'),
+                                UserDate.instance.user?.photoUrl ?? 'https://cdn.pixabay.com/photo/2021/07/02/04/48/user-6380868_1280.png'),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child:  TextField(
+                              controller: _descriptionControiller,
+                              decoration: const InputDecoration(
                                   hintText: 'Write a caption...',
                                   border: InputBorder.none),
                               maxLines: 8,
@@ -87,15 +93,14 @@ class _AddPostPageState extends State<AddPostPage> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://cdn.pixabay.com/photo/2019/09/29/22/06/light-bulb-4514505_1280.jpg'),
+                                  image: MemoryImage(widget.homeBloc.file!),
                                   fit: BoxFit.fill,
                                   alignment: FractionalOffset.topCenter,
                                 )),
                               ),
                             ),
                           ),
-                          Divider()
+                          const Divider()
                         ],
                       )
                     ],

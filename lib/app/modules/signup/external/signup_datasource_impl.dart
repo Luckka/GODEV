@@ -46,7 +46,7 @@ class SignUpDatasourceImpl implements SignUpDatasource {
         model.UserMapper userMapper = model.UserMapper(
             email: email,
             photoUrl: photoUrl,
-            username: photoUrl,
+            username: user,
             bio: bio,
             followers: [],
             following: [],

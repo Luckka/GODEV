@@ -16,3 +16,9 @@ class SelectImageState extends HomeState{
 
   SelectImageState({required this.image});
 }
+
+class SelectImageSuccessState extends HomeState{
+
+}
+
+class PostImageState extends HomeState{}

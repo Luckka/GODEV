@@ -22,3 +22,7 @@ class SelectedImageEvent extends HomeEvent{
   SelectedImageEvent(this.context);
 }
 
+class PostImageEvent extends HomeEvent{
+
+}
+
