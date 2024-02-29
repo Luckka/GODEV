@@ -13,13 +13,13 @@ class UserPostMapper extends UserPostEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'datePublished': datePublished,
-      'description': description,
-       'likes': likes,
-      'postId': postId,
-      'postImage': postImage,
-      'postUrl': postUrl,
-      'uid': uid,
+      'datePublished': datePublished ?? '',
+      'description': description ?? '',
+       'likes': likes ?? '',
+      'postId': postId ?? '',
+      'postImage': postImage ?? '',
+      'postUrl': postUrl ?? '',
+      'uid': uid ?? '',
     };
   }
 

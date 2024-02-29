@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 
 abstract class HomeEvent{
@@ -16,6 +18,8 @@ class HomePageChangeEvent extends HomeEvent{
 
 }
 
+
+
 class SelectedImageEvent extends HomeEvent{
   final BuildContext context;
 
@@ -23,11 +27,11 @@ class SelectedImageEvent extends HomeEvent{
 }
 
 class PostImageEvent extends HomeEvent{
-  final String uid;
-  final String username;
-  final String profileImage;
+  final String? uid;
+  final String? username;
+  final String? profileImage;
   final BuildContext context;
 
-  PostImageEvent({required this.uid, required this.username, required this.profileImage, required this.context});
+  PostImageEvent({required this.uid, required this.username, required this.profileImage, required this.context,});
 }
 

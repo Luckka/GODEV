@@ -27,7 +27,7 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
   int pageSelected = 0;
   Uint8List? file;
-  final TextEditingController _descriptionControiller = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   void navigationTap(int page){
     pageController.jumpToPage(page);
@@ -125,18 +125,20 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   }
 
   Future<void> _postImage(PostImageEvent event, Emitter<HomeState> emit) async{
+    emit(LoadingPost());
 
-    final result = await uploadPostUseCase.call(description: _descriptionControiller.text, file: file!, uid: event.uid, username: event.username, profileImage: event.profileImage);
+    final result = await uploadPostUseCase.call(description: descriptionController.text, file: file!, uid: event.uid ?? '', username: event.username ?? '', profileImage: event.profileImage ?? '');
 
     result.fold(
         ifLeft: (l){
           showSnackBar(l.message, event.context);
         },
         ifRight: (r){
+          file = null;
           showSnackBar('Success', event.context);
         });
 
-
+    emit(HomeStateInit());
 
   }
 }

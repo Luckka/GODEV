@@ -13,13 +13,13 @@ class UserMapper extends UserEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'email': email,
-      'photoUrl': photoUrl,
-      'username': username,
-      'bio': bio,
-      'followers': followers,
-      'following': following,
-      'uid': uid,
+      'email': email ?? '',
+      'photoUrl': photoUrl ?? '',
+      'username': username ?? '',
+      'bio': bio ?? '',
+      'followers': followers ?? '',
+      'following': following ?? '',
+      'uid': uid ?? '',
     };
   }
 

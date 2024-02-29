@@ -1,11 +1,11 @@
 class UserEntity {
-  final String email;
-  final String photoUrl;
-  final String username;
-  final String bio;
-  final List followers;
-  final List following;
-  final String uid;
+  final String? email;
+  final String? photoUrl;
+  final String? username;
+  final String? bio;
+  final List? followers;
+  final List? following;
+  final String? uid;
 
   UserEntity(
       {required this.email,

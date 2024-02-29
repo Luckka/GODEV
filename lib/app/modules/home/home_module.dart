@@ -9,7 +9,7 @@ import 'package:godev/app/modules/home/presenter/pages/home_page.dart';
 class HomeModule extends Module{
   @override
   List<Bind> get binds => [
-    Bind.lazySingleton((i) => UploadPostUseCaseImpl()),
+    Bind.lazySingleton((i) => UploadPostUseCaseImpl(uploadPostRepository: i())),
     Bind.lazySingleton((i) => UploadPostDatasourceImpl()),
     Bind.lazySingleton((i) => UploadPostRepositoryImpl(uploadPostDatasource: i())),
     Bind.lazySingleton((i) => HomeBloc(uploadPostUseCase: i()))

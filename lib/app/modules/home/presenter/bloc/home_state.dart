@@ -22,3 +22,5 @@ class SelectImageSuccessState extends HomeState{
 }
 
 class PostImageState extends HomeState{}
+
+class LoadingPost extends HomeState{}
