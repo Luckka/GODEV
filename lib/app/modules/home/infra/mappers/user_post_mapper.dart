@@ -20,6 +20,7 @@ class UserPostMapper extends UserPostEntity {
       'postImage': postImage ?? '',
       'postUrl': postUrl ?? '',
       'uid': uid ?? '',
+      'username': username ?? ''
     };
   }
 

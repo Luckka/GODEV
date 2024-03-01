@@ -13,7 +13,7 @@ class StorageMethods {
 
     if(isPost){
       String id = const Uuid().v1();
-      res.child(id);
+      res = res.child(id);
     }
     
     UploadTask uploadTask = res.putData(file);
