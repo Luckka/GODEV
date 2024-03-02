@@ -1,5 +1,7 @@
 import 'package:dart_either/dart_either.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:godev/app/core/app_routes.dart';
 import 'package:godev/app/core/shared/app_text_style.dart';
 import 'package:godev/app/core/shared/user_info.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
@@ -124,20 +126,22 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               LikeAnimation(
                 smallLike: true,
                 isAnimating:
-                    widget.snap['likes'].contains(UserDate.instance.user?.uid),
+                    widget.snap['likes'].contains(widget.snap['uid']),
                 onEnd: () {},
                 child: IconButton(
                     onPressed: () {
                       widget.homeBloc.add(UpdateLikeEvent(uid: widget.snap['uid'], postId: widget.snap['postId'], likes: widget.snap['likes']));
                     },
-                    icon: widget.snap['likes'].contains(UserDate.instance.user?.uid) ?  const Icon(
+                    icon: widget.snap['likes'].contains(widget.snap['uid']) ?  const Icon(
                       Icons.favorite,
                       color: Colors.red,
                     ): const Icon(Icons.favorite_border)
                 ),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.navigate(AppRoutes.comments);
+                  },
                   icon: const Icon(
                     Icons.comment_outlined,
                   )),

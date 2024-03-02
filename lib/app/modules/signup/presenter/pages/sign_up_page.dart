@@ -36,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildPage(BuildContext context) {
-    final bloc = BlocProvider.of<SignUpBloc>(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(

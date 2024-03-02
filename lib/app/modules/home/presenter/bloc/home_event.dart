@@ -44,3 +44,13 @@ class UpdateLikeEvent extends HomeEvent{
 
 }
 
+class PostCommentEvent extends HomeEvent{
+  final String postId;
+  final String text;
+  final String uid;
+  final String name;
+  final String profilePic;
+
+  PostCommentEvent({required this.postId, required this.text, required this.uid, required this.name, required this.profilePic});
+}
+
