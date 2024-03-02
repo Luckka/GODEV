@@ -35,3 +35,12 @@ class PostImageEvent extends HomeEvent{
   PostImageEvent({required this.uid, required this.username, required this.profileImage, required this.context,});
 }
 
+class UpdateLikeEvent extends HomeEvent{
+  final String uid;
+  final String postId;
+  final List likes;
+
+  UpdateLikeEvent({required this.uid, required this.postId, required this.likes});
+
+}
+

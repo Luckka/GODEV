@@ -5,10 +5,17 @@ import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
 import 'package:godev/app/modules/home/presenter/widgets/post_card_widget.dart';
 
-class FeedPage extends StatelessWidget {
+class FeedPage extends StatefulWidget {
 
-  const FeedPage({super.key});
+  final HomeBloc homeBloc;
 
+  const FeedPage({super.key, required this.homeBloc});
+
+  @override
+  State<FeedPage> createState() => _FeedPageState();
+}
+
+class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +39,12 @@ class FeedPage extends StatelessWidget {
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context,index) =>  PostCardWidget(
-                snap: snapshot.data!.docs[index].data()
+                snap: snapshot.data!.docs[index].data(), homeBloc: widget.homeBloc,
               ));
         }
       )
-      
+
     );
-    
+
   }
 }

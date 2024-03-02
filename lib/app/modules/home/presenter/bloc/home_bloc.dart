@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godev/app/core/shared/snack_bar_widget.dart';
+import 'package:godev/app/modules/home/domain/usecase/update_like_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/upload_post_usecase.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
@@ -13,17 +14,19 @@ import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
-  HomeBloc({required this.uploadPostUseCase}) :super(HomeStateInit()){
+  HomeBloc({required this.uploadPostUseCase, required this.updateLikeUseCase}) :super(HomeStateInit()){
     on<InitialEvent>(_init);
     on<HomePageChangeEvent>(_homePageChangeEvent);
     on<SelectedImageEvent>(_selectImage);
     on<PostImageEvent>(_postImage);
+    on<UpdateLikeEvent>(_updateLike);
 
   }
 
   late PageController pageController;
 
   final UploadPostUseCase uploadPostUseCase;
+  final UpdateLikeUseCase updateLikeUseCase;
 
   int pageSelected = 0;
   Uint8List? file;
@@ -140,5 +143,9 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
     emit(HomeStateInit());
 
+  }
+
+  Future<void> _updateLike(UpdateLikeEvent event, Emitter<HomeState> emit) async{
+    await updateLikeUseCase.call(postId: event.postId, uid: event.uid, likes: event.likes);
   }
 }

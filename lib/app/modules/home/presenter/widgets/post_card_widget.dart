@@ -2,12 +2,15 @@ import 'package:dart_either/dart_either.dart';
 import 'package:flutter/material.dart';
 import 'package:godev/app/core/shared/app_text_style.dart';
 import 'package:godev/app/core/shared/user_info.dart';
+import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
+import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/utils/like_animation.dart';
 import 'package:intl/intl.dart';
 
 class PostCardWidget extends StatefulWidget {
   final snap;
-  const PostCardWidget({super.key, required this.snap});
+  final HomeBloc homeBloc;
+  const PostCardWidget({super.key, required this.snap, required this.homeBloc});
 
   @override
   State<PostCardWidget> createState() => _PostCardWidgetState();
@@ -75,7 +78,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             ),
           ),
           GestureDetector(
-            onDoubleTap: () {
+            onDoubleTap: () async{
+              widget.homeBloc.add(UpdateLikeEvent(uid: widget.snap['uid'], postId: widget.snap['postId'], likes: widget.snap['likes']));
               setState(() {
                 isLikeAnimating = true;
               });
@@ -123,11 +127,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     widget.snap['likes'].contains(UserDate.instance.user?.uid),
                 onEnd: () {},
                 child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
+                    onPressed: () {
+                      widget.homeBloc.add(UpdateLikeEvent(uid: widget.snap['uid'], postId: widget.snap['postId'], likes: widget.snap['likes']));
+                    },
+                    icon: widget.snap['likes'].contains(UserDate.instance.user?.uid) ?  const Icon(
                       Icons.favorite,
                       color: Colors.red,
-                    )),
+                    ): const Icon(Icons.favorite_border)
+                ),
               ),
               IconButton(
                   onPressed: () {},

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             controller: widget.homeBloc.pageController,
             onPageChanged: onPageChanged,
             children: [
-              FeedPage(),
+              FeedPage(homeBloc: widget.homeBloc,),
               const Text('test2'),
               AddPostPage(homeBloc: widget.homeBloc,),
               const Text('test4'),
