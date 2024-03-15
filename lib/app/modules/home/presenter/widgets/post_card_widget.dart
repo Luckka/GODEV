@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,6 +21,23 @@ class PostCardWidget extends StatefulWidget {
 
 class _PostCardWidgetState extends State<PostCardWidget> {
   bool isLikeAnimating = false;
+  int comments = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getComments();
+  }
+
+  void getComments() async{
+   QuerySnapshot snap =  await FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').get();
+
+   comments = snap.docs.length;
+
+   setState(() {
+
+   });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,7 +158,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               ),
               IconButton(
                   onPressed: () {
-                    Modular.to.navigate(AppRoutes.comments);
+                    Modular.to.pushNamed('/comments?snap=${widget.snap['postId']}');
                   },
                   icon: const Icon(
                     Icons.comment_outlined,
@@ -192,7 +210,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      'View all 200 comments',
+                      'View all $comments comments',
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ),

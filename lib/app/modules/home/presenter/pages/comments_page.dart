@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:godev/app/core/shared/user_info.dart';
@@ -16,6 +17,14 @@ class CommentsPage extends StatefulWidget {
 }
 
 class _CommentsPageState extends State<CommentsPage> {
+  final TextEditingController _commentsController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _commentsController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +33,26 @@ class _CommentsPageState extends State<CommentsPage> {
         title: const Text('Comments'),
         centerTitle: false,
       ),
-      body: CommentCardWidget(),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('posts')
+            .doc(widget.snap)
+            .collection('comments')
+            .orderBy('datePublished',descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) =>
+                  CommentCardWidget(snap: snapshot.data!.docs[index].data()));
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: kToolbarHeight,
@@ -42,6 +70,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0, right: 8.0),
                   child: TextField(
+                    controller: _commentsController,
                     decoration: InputDecoration(
                         hintText:
                             "Comment as ${UserDate.instance.user?.username}",
@@ -52,11 +81,15 @@ class _CommentsPageState extends State<CommentsPage> {
               InkWell(
                 onTap: () {
                   widget.homeBloc.add(PostCommentEvent(
-                      postId: widget.snap['postId'],
-                      text: widget.snap['text'],
+                      postId: widget.snap,
+                      text: _commentsController.text,
                       uid: UserDate.instance.user?.uid ?? '',
                       name: UserDate.instance.user?.username ?? '',
                       profilePic: UserDate.instance.user?.photoUrl ?? ''));
+
+                  setState(() {
+                    _commentsController.text = '';
+                  });
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),

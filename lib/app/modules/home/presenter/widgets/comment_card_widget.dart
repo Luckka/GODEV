@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class CommentCardWidget extends StatelessWidget {
-  const CommentCardWidget({super.key});
+class CommentCardWidget extends StatefulWidget {
+  final snap;
+  const CommentCardWidget({super.key, required this.snap});
 
+  @override
+  State<CommentCardWidget> createState() => _CommentCardWidgetState();
+}
+
+class _CommentCardWidgetState extends State<CommentCardWidget> {
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -10,7 +17,7 @@ class CommentCardWidget extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2023/12/19/16/08/butterfly-8457979_1280.jpg'),
+            backgroundImage: NetworkImage(widget.snap['profilePic']),
             radius: 18,
           ),
 
@@ -24,18 +31,18 @@ class CommentCardWidget extends StatelessWidget {
                     RichText(text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'username',
+                          text: widget.snap['name'],
                           style: const TextStyle(fontWeight: FontWeight.bold)
                         ),
                         TextSpan(
-                            text: 'some description to insert',
-            
+                            text: ' ${widget.snap['text']}',
+
                         ),
                       ]
                     )),
                     Padding(
                         padding:const EdgeInsets.only(top: 4),
-                        child: Text('23/12/21',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400),),
+                        child: Text(DateFormat.yMMMd().format(widget.snap['datePublished'].toDate()),style: const TextStyle(fontSize: 12,fontWeight: FontWeight.w400),),
                     )
                   ],
                 ),

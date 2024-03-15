@@ -52,7 +52,11 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
   void _init(InitialEvent event, Emitter<HomeState> emit) async{
 
+
+
      emit(HomeStateInit());
+
+         print('TESTE INIT');
 
      pageController = PageController();
 
@@ -153,6 +157,6 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   }
 
   Future<void> _postComment(PostCommentEvent event, Emitter<HomeState> emit) async{
-
+    await postCommentUseCase.call(postId: event.postId, text: event.text, uid: event.uid, name: event.name, profilePic: event.profilePic);
   }
 }

@@ -14,6 +14,7 @@ class PostCommentDatasourceImpl implements PostCommentDatasource{
       try{
 
         if(text.isNotEmpty){
+          print('DEUBOM');
           String commentId = const Uuid().v1();
           await firestore.collection('posts').doc(postId).collection('comments').doc(commentId).set({
             'profilePic': profilePic,
@@ -28,7 +29,7 @@ class PostCommentDatasourceImpl implements PostCommentDatasource{
         }
 
       }catch(err){
-
+        print(err);
       }
   }
 

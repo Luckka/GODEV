@@ -38,7 +38,7 @@ class AppModule extends Module{
     ModuleRoute(Modular.initialRoute, module: HomeModule()),
     ModuleRoute(AppRoutes.signup, module: SignUpModule()),
     ModuleRoute(AppRoutes.home, module: HomeModule()),
-    ChildRoute(AppRoutes.comments, child: (args,context) => CommentsPage(homeBloc: Modular.get<HomeBloc>(), snap: null,))
+    ChildRoute('/comments', child: (_,args) => CommentsPage(homeBloc: Modular.get<HomeBloc>(), snap: args.queryParams['snap'],))
 
   ];
 }
