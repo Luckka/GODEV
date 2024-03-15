@@ -54,3 +54,9 @@ class PostCommentEvent extends HomeEvent{
   PostCommentEvent({required this.postId, required this.text, required this.uid, required this.name, required this.profilePic});
 }
 
+class DeletePostEvent extends HomeEvent{
+  final String postId;
+
+  DeletePostEvent({required this.postId});
+}
+

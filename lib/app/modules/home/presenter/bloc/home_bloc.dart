@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godev/app/core/shared/snack_bar_widget.dart';
+import 'package:godev/app/modules/home/domain/usecase/delete_post_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/post_comment_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/update_like_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/upload_post_usecase.dart';
@@ -15,13 +16,14 @@ import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
-  HomeBloc({required this.uploadPostUseCase, required this.updateLikeUseCase,required this.postCommentUseCase}) :super(HomeStateInit()){
+  HomeBloc({required this.uploadPostUseCase, required this.updateLikeUseCase,required this.postCommentUseCase, required this.deletePostUseCase}) :super(HomeStateInit()){
     on<InitialEvent>(_init);
     on<HomePageChangeEvent>(_homePageChangeEvent);
     on<SelectedImageEvent>(_selectImage);
     on<PostImageEvent>(_postImage);
     on<UpdateLikeEvent>(_updateLike);
     on<PostCommentEvent>(_postComment);
+    on<DeletePostEvent>(_deletePost);
 
   }
 
@@ -30,6 +32,7 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   final UploadPostUseCase uploadPostUseCase;
   final UpdateLikeUseCase updateLikeUseCase;
   final PostCommentUseCase postCommentUseCase;
+  final DeletePostUseCase deletePostUseCase;
 
   int pageSelected = 0;
   Uint8List? file;
@@ -158,5 +161,9 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
   Future<void> _postComment(PostCommentEvent event, Emitter<HomeState> emit) async{
     await postCommentUseCase.call(postId: event.postId, text: event.text, uid: event.uid, name: event.name, profilePic: event.profilePic);
+  }
+
+  Future<void> _deletePost(DeletePostEvent event, Emitter<HomeState> emit) async{
+    await deletePostUseCase.call(postId: event.postId);
   }
 }
