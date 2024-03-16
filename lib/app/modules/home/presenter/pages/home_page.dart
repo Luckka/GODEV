@@ -7,6 +7,7 @@ import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/pages/add_post_page.dart';
 import 'package:godev/app/modules/home/presenter/pages/feed_page.dart';
+import 'package:godev/app/modules/home/presenter/pages/search_page.dart';
 
 import '../bloc/home_state.dart';
 import '../utils/navigation_tap.dart';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             onPageChanged: onPageChanged,
             children: [
               FeedPage(homeBloc: widget.homeBloc,),
-              const Text('test2'),
+              const SearchPage(),
               AddPostPage(homeBloc: widget.homeBloc,),
               const Text('test4'),
               const Text('test5'),
