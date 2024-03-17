@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:godev/app/core/app_routes.dart';
 import 'package:godev/app/modules/home/home_module.dart';
+import 'package:godev/app/modules/home/presenter/pages/profile_page.dart';
 import 'package:godev/app/modules/login/login_module.dart';
 import 'package:godev/app/modules/signup/sign_up_module.dart';
 
@@ -44,7 +45,8 @@ class AppModule extends Module{
     ModuleRoute(Modular.initialRoute, module: LoginModule()),
     ModuleRoute(AppRoutes.signup, module: SignUpModule()),
     ModuleRoute(AppRoutes.home, module: HomeModule()),
-    ChildRoute('/comments', child: (_,args) => CommentsPage(homeBloc: Modular.get<HomeBloc>(), snap: args.queryParams['snap'],))
+    ChildRoute('/comments', child: (_,args) => CommentsPage(homeBloc: Modular.get<HomeBloc>(), snap: args.queryParams['snap'],)),
+    ChildRoute("/profile", child: (_,args) => ProfilePage(uid: args.queryParams['uid']!))
 
   ];
 }

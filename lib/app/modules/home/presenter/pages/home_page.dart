@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
 import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 import 'package:godev/app/modules/home/presenter/pages/add_post_page.dart';
 import 'package:godev/app/modules/home/presenter/pages/feed_page.dart';
+import 'package:godev/app/modules/home/presenter/pages/profile_page.dart';
 import 'package:godev/app/modules/home/presenter/pages/search_page.dart';
 
 import '../bloc/home_state.dart';
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               const SearchPage(),
               AddPostPage(homeBloc: widget.homeBloc,),
               const Text('test4'),
-              const Text('test5'),
+              ProfilePage(uid: FirebaseAuth.instance.currentUser!.uid ,)
             ],
           );
         },
