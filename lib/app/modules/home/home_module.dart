@@ -17,13 +17,17 @@ import 'package:godev/app/modules/home/presenter/bloc/home_state.dart';
 import 'package:godev/app/modules/home/presenter/pages/comments_page.dart';
 import 'package:godev/app/modules/home/presenter/pages/home_page.dart';
 
+import 'domain/usecase/follow_user_usecase_impl.dart';
+import 'external/follow_user_datasource_impl.dart';
+import 'infra/repository/follow_user_repository_impl.dart';
+
 class HomeModule extends Module{
   @override
   List<Bind> get binds => [
     Bind.lazySingleton((i) => UploadPostUseCaseImpl(uploadPostRepository: i())),
     Bind.lazySingleton((i) => UploadPostDatasourceImpl()),
     Bind.lazySingleton((i) => UploadPostRepositoryImpl(uploadPostDatasource: i())),
-    Bind.lazySingleton((i) => HomeBloc(uploadPostUseCase: i(), updateLikeUseCase: i(), postCommentUseCase: i(), deletePostUseCase: i())),
+    Bind.lazySingleton((i) => HomeBloc(uploadPostUseCase: i(), updateLikeUseCase: i(), postCommentUseCase: i(), deletePostUseCase: i(), followUserUseCase: i())),
     Bind.lazySingleton((i) => UpdateLikeUseCaseImpl(updateLikeRepository: i())),
     Bind.lazySingleton((i) => UpdateLikeDatasourceImpl()),
     Bind.lazySingleton((i) => UpdateLikeRepositoryImpl(updateLikeDatasource: i())),
@@ -33,6 +37,9 @@ class HomeModule extends Module{
     Bind.lazySingleton((i) => DeletePostUseCaseImpl(deletePostRepository: i())),
     Bind.lazySingleton((i) => DeletePostDatasourceImpl()),
     Bind.lazySingleton((i) => DeletePostRepositoryImpl(deletePostDatasource: i())),
+    Bind.lazySingleton((i) => FollowUserDatasourceImpl()),
+    Bind.lazySingleton((i) => FollowUserRepositoryImpl(followUserDatasource: i())),
+    Bind.lazySingleton((i) => FollowUserUseCaseImpl(followUserRepository: i()))
   ];
 
 

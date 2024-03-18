@@ -4,12 +4,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:godev/app/core/shared/snack_bar_widget.dart';
 import 'package:godev/app/core/shared/user_info.dart';
+import 'package:godev/app/modules/home/presenter/bloc/home_bloc.dart';
+import 'package:godev/app/modules/home/presenter/bloc/home_event.dart';
 
 import '../widgets/follow_button_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;
-  const ProfilePage({super.key, required this.uid});
+  final HomeBloc homeBloc;
+  const ProfilePage({super.key, required this.uid, required this.homeBloc});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -95,23 +98,41 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               FirebaseAuth.instance.currentUser!.uid == widget.uid?
                               FollowButtonWidget(
-                                text: 'Edit Profile',
+                                text: 'SingOut',
                                 backgroundColor: Theme.of(context).primaryColor,
                                 textColor: Colors.white,
                                 borderColor: Colors.grey,
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget.homeBloc.add(SignOutEvent());
+
+                                },
                               ) : isFollowing ? FollowButtonWidget(
                                 text: 'Unfollow',
                                 backgroundColor: Colors.white,
                                 textColor: Colors.black,
                                 borderColor: Colors.grey,
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget.homeBloc.add(FollowUsersEvent(uid: FirebaseAuth.instance.currentUser!.uid, followId: UserDate.instance.user?.uid ?? ''));
+                                  setState(() {
+                                    isFollowing = false;
+                                    followers--;
+                                  });
+                                },
+
+
                               ): FollowButtonWidget(
                                 text: 'Follow',
                                 backgroundColor: Colors.blue,
                                 textColor: Colors.white,
                                 borderColor: Colors.blue,
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget.homeBloc.add(FollowUsersEvent(uid: FirebaseAuth.instance.currentUser!.uid, followId: UserDate.instance.user?.uid ?? ''));
+
+                                  setState(() {
+                                    isFollowing = true;
+                                    followers++;
+                                  });
+                                },
                               )
                             ],
                           )

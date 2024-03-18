@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:godev/app/core/app_routes.dart';
 import 'package:godev/app/core/shared/snack_bar_widget.dart';
 import 'package:godev/app/modules/home/domain/usecase/delete_post_usecase.dart';
+import 'package:godev/app/modules/home/domain/usecase/follow_user_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/post_comment_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/update_like_usecase.dart';
 import 'package:godev/app/modules/home/domain/usecase/upload_post_usecase.dart';
@@ -16,7 +20,7 @@ import 'package:godev/app/modules/signup/presenter/utils/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
-  HomeBloc({required this.uploadPostUseCase, required this.updateLikeUseCase,required this.postCommentUseCase, required this.deletePostUseCase}) :super(HomeStateInit()){
+  HomeBloc({required this.uploadPostUseCase, required this.updateLikeUseCase,required this.postCommentUseCase, required this.deletePostUseCase, required this.followUserUseCase}) :super(HomeStateInit()){
     on<InitialEvent>(_init);
     on<HomePageChangeEvent>(_homePageChangeEvent);
     on<SelectedImageEvent>(_selectImage);
@@ -24,6 +28,8 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
     on<UpdateLikeEvent>(_updateLike);
     on<PostCommentEvent>(_postComment);
     on<DeletePostEvent>(_deletePost);
+    on<FollowUsersEvent>(_followUsers);
+    on<SignOutEvent>(_signOut);
 
   }
 
@@ -33,6 +39,8 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   final UpdateLikeUseCase updateLikeUseCase;
   final PostCommentUseCase postCommentUseCase;
   final DeletePostUseCase deletePostUseCase;
+  final FollowUserUseCase followUserUseCase;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   int pageSelected = 0;
   Uint8List? file;
@@ -42,14 +50,11 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
     pageController.jumpToPage(page);
   }
 
-  // void onPageChanged(int page){
-  //
-  //   pageSelected = page;
-  //
-  //   add(HomePageChangeEvent(pageSelected));
-  //
-  //
-  // }
+
+
+  Future<void> signOut()async{
+    await _auth.signOut();
+  }
 
 
 
@@ -165,5 +170,14 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
 
   Future<void> _deletePost(DeletePostEvent event, Emitter<HomeState> emit) async{
     await deletePostUseCase.call(postId: event.postId);
+  }
+
+  Future<void> _followUsers(FollowUsersEvent event, Emitter<HomeState> emit) async{
+    await followUserUseCase.call(uid: event.uid, followId: event.followId);
+  }
+
+  Future<void> _signOut(SignOutEvent event, Emitter<HomeState> emit) async{
+    await signOut();
+    Modular.to.navigate('/');
   }
 }

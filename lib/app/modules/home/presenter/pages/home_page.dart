@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               const SearchPage(),
               AddPostPage(homeBloc: widget.homeBloc,),
               const Text('test4'),
-              ProfilePage(uid: FirebaseAuth.instance.currentUser!.uid ,)
+              ProfilePage(uid: FirebaseAuth.instance.currentUser!.uid, homeBloc: widget.homeBloc)
             ],
           );
         },

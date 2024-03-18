@@ -60,3 +60,14 @@ class DeletePostEvent extends HomeEvent{
   DeletePostEvent({required this.postId});
 }
 
+class FollowUsersEvent extends HomeEvent{
+  final String uid;
+  final String followId;
+
+  FollowUsersEvent({required this.uid, required this.followId});
+}
+
+class SignOutEvent extends HomeEvent{
+
+}
+

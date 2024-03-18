@@ -1,6 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:godev/app/core/app_routes.dart';
+import 'package:godev/app/modules/home/domain/usecase/follow_user_usecase_impl.dart';
+import 'package:godev/app/modules/home/external/follow_user_datasource_impl.dart';
 import 'package:godev/app/modules/home/home_module.dart';
+import 'package:godev/app/modules/home/infra/repository/follow_user_repository_impl.dart';
 import 'package:godev/app/modules/home/presenter/pages/profile_page.dart';
 import 'package:godev/app/modules/login/login_module.dart';
 import 'package:godev/app/modules/signup/sign_up_module.dart';
@@ -26,7 +29,7 @@ class AppModule extends Module{
     Bind.lazySingleton((i) => UploadPostUseCaseImpl(uploadPostRepository: i())),
     Bind.lazySingleton((i) => UploadPostDatasourceImpl()),
     Bind.lazySingleton((i) => UploadPostRepositoryImpl(uploadPostDatasource: i())),
-    Bind.lazySingleton((i) => HomeBloc(uploadPostUseCase: i(), updateLikeUseCase: i(), postCommentUseCase: i(), deletePostUseCase: i())),
+    Bind.lazySingleton((i) => HomeBloc(uploadPostUseCase: i(), updateLikeUseCase: i(), postCommentUseCase: i(), deletePostUseCase: i(), followUserUseCase: i())),
     Bind.lazySingleton((i) => UpdateLikeUseCaseImpl(updateLikeRepository: i())),
     Bind.lazySingleton((i) => UpdateLikeDatasourceImpl()),
     Bind.lazySingleton((i) => UpdateLikeRepositoryImpl(updateLikeDatasource: i())),
@@ -36,6 +39,9 @@ class AppModule extends Module{
     Bind.lazySingleton((i) => DeletePostUseCaseImpl(deletePostRepository: i())),
     Bind.lazySingleton((i) => DeletePostDatasourceImpl()),
     Bind.lazySingleton((i) => DeletePostRepositoryImpl(deletePostDatasource: i())),
+    Bind.lazySingleton((i) => FollowUserDatasourceImpl()),
+    Bind.lazySingleton((i) => FollowUserRepositoryImpl(followUserDatasource: i())),
+    Bind.lazySingleton((i) => FollowUserUseCaseImpl(followUserRepository: i()))
 
   ];
 
@@ -46,7 +52,7 @@ class AppModule extends Module{
     ModuleRoute(AppRoutes.signup, module: SignUpModule()),
     ModuleRoute(AppRoutes.home, module: HomeModule()),
     ChildRoute('/comments', child: (_,args) => CommentsPage(homeBloc: Modular.get<HomeBloc>(), snap: args.queryParams['snap'],)),
-    ChildRoute("/profile", child: (_,args) => ProfilePage(uid: args.queryParams['uid']!))
+    ChildRoute("/profile", child: (_,args) => ProfilePage(uid: args.queryParams['uid']!, homeBloc: Modular.get<HomeBloc>(),))
 
   ];
 }
