@@ -19,14 +19,7 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        centerTitle: false,
-        title: Image.asset('assets/godev.png', height: 42,),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.messenger_outline))
-        ],
-      ),
+
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>> snapshot){

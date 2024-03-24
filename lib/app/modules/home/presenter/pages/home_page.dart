@@ -60,7 +60,6 @@ class _HomePageState extends State<HomePage> {
               FeedPage(homeBloc: widget.homeBloc,),
               const SearchPage(),
               AddPostPage(homeBloc: widget.homeBloc,),
-              const Text('test4'),
               ProfilePage(uid: FirebaseAuth.instance.currentUser!.uid, homeBloc: widget.homeBloc)
             ],
           );
@@ -99,17 +98,8 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite,
-                color: widget.homeBloc.pageSelected == 3
-                    ? AppColors.green
-                    : AppColors.white,
-              ),
-              label: '',
-              backgroundColor: Colors.amber),
-          BottomNavigationBarItem(
-              icon: Icon(
                 Icons.person,
-                color: widget.homeBloc.pageSelected == 4
+                color: widget.homeBloc.pageSelected == 3
                     ? AppColors.green
                     : AppColors.white,
               ),
