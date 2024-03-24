@@ -1,16 +1,14 @@
-# godev
+# GODEV
 
-A new Flutter project.
+# About 
 
-## Getting Started
+Use of Firebase + Clean Architecture, using Firestore, Storage, Firebase Auth, account synchronization, showing Post Feed, possibility of following people, visiting profile, making posts, commenting on posts, liking.
 
-This project is a starting point for a Flutter application.
+## Layout 
+![Mobile1](https://github.com/Luckka/GODEV/blob/main/assets/godev6.jpeg)
+![Mobile2](https://github.com/Luckka/GODEV/blob/main/assets/godev5.jpeg)
+![Mobile2](https://github.com/Luckka/GODEV/blob/main/assets/godev4.jpeg)
+![Mobile2](https://github.com/Luckka/GODEV/blob/main/assets/godev3.jpeg)
+![Mobile2](https://github.com/Luckka/GODEV/blob/main/assets/godev2.jpeg)
+![Mobile2](https://github.com/Luckka/GODEV/blob/main/assets/godev1.jpeg)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
